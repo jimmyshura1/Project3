@@ -8,7 +8,10 @@
       <label for="directions">Directions (each step on a new line):</label>
       <textarea id="directions" v-model="directions" required></textarea>
       
-      <button type="submit">Generate Full Recipe</button>
+      <div class="button-group">
+        <button type="submit">Generate Full Recipe</button>
+        <button type="button" @click="clearRecipe">Clear</button>
+      </div>
     </form>
     
     <div v-if="recipe.ingredients.length" class="recipe-output">
@@ -38,7 +41,13 @@ export default {
       recipe.value.directions = directions.value.split('\n').map(d => d.trim());
     };
 
-    return { ingredients, directions, recipe, submitRecipe };
+    const clearRecipe = () => {
+      ingredients.value = '';
+      directions.value = '';
+      recipe.value = { ingredients: [], directions: [] };
+    };
+
+    return { ingredients, directions, recipe, submitRecipe, clearRecipe };
   }
 };
 </script>
